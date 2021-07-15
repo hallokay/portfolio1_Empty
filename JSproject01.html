@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript day-1</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="keys">
+        <div data-key="65" class="key">
+            <!-- 키보드의 고유 번호 keycode -->
+            <kbd>A</kbd>
+            <span class="sound">clap</span>
+        </div>
+
+        <div data-key="83" class="key">
+            <!-- 키보드의 고유 번호 -->
+            <kbd>S</kbd>
+            <span class="sound">hihat</span>
+        </div>
+
+        <div data-key="68" class="key">
+            <!-- 키보드의 고유 번호 -->
+            <kbd>D</kbd>
+            <span class="sound">kick</span>
+        </div>
+
+        <div data-key="70" class="key">
+            <!-- 키보드의 고유 번호 -->
+            <kbd>F</kbd>
+            <span class="sound">openhat</span>
+        </div>
+
+        <div data-key="71" class="key">
+            <kbd>G</kbd>
+            <span class="sound">boom</span>
+          </div>
+
+          <div data-key="72" class="key">
+            <kbd>H</kbd>
+            <span class="sound">ride</span>
+          </div>
+
+          <div data-key="74" class="key">
+            <kbd>J</kbd>
+            <span class="sound">snare</span>
+          </div>
+
+          <div data-key="75" class="key">
+            <kbd>K</kbd>
+            <span class="sound">tom</span>
+          </div>
+
+          <div data-key="76" class="key">
+            <kbd>L</kbd>
+            <span class="sound">tink</span>
+          </div>
+
+    </div>
+    <!-- //keys -->
+
+    <audio data-key="65" src="./sounds/clap.wav"></audio>
+    <audio data-key="83" src="./sounds/hihat.wav"></audio>
+    <audio data-key="68" src="./sounds/kick.wav"></audio>
+    <audio data-key="70" src="./sounds/openhat.wav"></audio>
+    <audio data-key="71" src="./sounds/boom.wav"></audio>
+    <audio data-key="72" src="./sounds/ride.wav"></audio>
+    <audio data-key="74" src="./sounds/snare.wav"></audio>
+    <audio data-key="75" src="./sounds/tom.wav"></audio>
+    <audio data-key="76" src="./sounds/tink.wav"></audio>
+
+
+    <script>
+
+// 시작하자마자 바로 호출 
+        (() => {
+
+            function playSound(e) {
+                // 내가 누른 키보드의 이벤트를 e로 받아서
+                // 사운드클립과 키엘리먼트로 불러옴
+                // console.log(e.keyCode);
+                const soundclip = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+                const keyEl = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+            
+                if(!soundclip) return undefined;
+                // 사운드 클립에 데이터 키가 없을 때, 키보드데이터와 매치가 안될때 언디파인드 반환 함수 종료
+                
+                soundclip.currentTime = 0;
+                // 누를 떄마다 먼저 오디오의 시간을 전부 0으로 리셋- 연타 가능하게..
+                soundclip.play();
+          
+                // key 색깔 변화하는거
+                keyEl.classList.add('playing');
+                // 키 엘리먼트에 트랜지션이 끝나면 플레잉을 지운다.
+                keyEl.addEventListener('transitionend', () => keyEl.classList.remove('playing'));
+  
+            };
+
+            window.addEventListener('keydown', playSound)
+            // 윈도우에서 키보드를 눌렀을 때...플레이 사운드 함수 실행
+
+
+        })();
+
+
+
+
+        
+    
+
+     
+        
+
+    </script>
+</body>
+</html>
